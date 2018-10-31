@@ -1,5 +1,5 @@
 import React from 'react'
-import { addTodo } from '../actions'
+import { fetchPostsIfNeeded } from '../actions'
 import {connect} from 'react-redux'
 
 const AddTodo = ({ dispatch }) => {
@@ -10,7 +10,7 @@ const AddTodo = ({ dispatch }) => {
       <form onSubmit={ e => {
         e.preventDefault()
         if(!input.value.trim()) { return }
-        dispatch(addTodo(input.value))
+        dispatch(fetchPostsIfNeeded(input.value))
         input.value = ''
       }} >
         <input ref={node => input = node} />
