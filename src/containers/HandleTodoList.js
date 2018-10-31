@@ -9,8 +9,8 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = dispatch => ({
-  toggleTodo: index => dispatch(toggleTodo(index)),
-  deleteTodo: index => dispatch(deleteTodo(index))
+  toggleTodo: id => dispatch(toggleTodo(id)),
+  deleteTodo: id => dispatch(deleteTodo(id))
 })
 
 export default connect(
