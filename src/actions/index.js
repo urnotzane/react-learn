@@ -78,11 +78,11 @@ function fetchRequest(url, params, dataName) {
         // 导致 'Unexpected batch number' 错误。
         error => console.log("An error occurred.", error)
       )
-      .then(json =>
+      .then(json => {
         // 可以多次 dispatch！
         // 这里，使用 API 请求结果来更新应用的 state。
-        dispatch(receivePosts(eval("(" + json + ")"), dataName))
-      );
+        dispatch(receivePosts(eval("(" + json + ")"), dataName));
+      });
   };
 }
 
