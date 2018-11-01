@@ -23,19 +23,19 @@ export const deleteTodo = id => {
 
 export const REQUEST_POSTS = "REQUEST_POSTS";
 
-export function requestPosts(subreddit) {
+export function requestPosts(dataName) {
   return {
     type: REQUEST_POSTS,
-    subreddit
+    dataName
   };
 }
 
 export const RECEIVE_POSTS = "RECEIVE_POSTS";
 
-export function receivePosts(subreddit, json) {
+export function receivePosts(json, dataName) {
   return {
     type: RECEIVE_POSTS,
-    subreddit,
+    dataName,
     posts: json,
     receivedAt: Date.now()
   };
@@ -45,7 +45,7 @@ export function receivePosts(subreddit, json) {
 // 虽然内部操作不同，你可以像其它 action 创建函数 一样使用它：
 // store.dispatch(fetchPosts('reactjs'))
 
-function fetchPosts(subreddit) {
+function fetchPosts(url, params, dataName) {
   // Thunk middleware 知道如何处理函数。
   // 这里把 dispatch 方法通过参数的形式传给函数，
   // 以此来让它自己也能 dispatch action。
@@ -54,7 +54,7 @@ function fetchPosts(subreddit) {
     // 首次 dispatch：更新应用的 state 来通知
     // API 请求发起了。
 
-    dispatch(requestPosts(subreddit));
+    dispatch(requestPosts(dataName));
 
     // thunk middleware 调用的函数可以有返回值，
     // 它会被当作 dispatch 方法的返回值传递。
@@ -62,13 +62,10 @@ function fetchPosts(subreddit) {
     // 这个案例中，我们返回一个等待处理的 promise。
     // 这并不是 redux middleware 所必须的，但这对于我们而言很方便。
 
-    return fetch("/api/Login/Login", {
+    return fetch(`/api${url}`, {
       method: "POST",
       credentials: "include", //包含cookie
-      body: JSON.stringify({
-        LoginName: "ZLR",
-        Password: "123456"
-      }),
+      body: JSON.stringify(params),
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json"
@@ -85,13 +82,13 @@ function fetchPosts(subreddit) {
       .then(json =>
         // 可以多次 dispatch！
         // 这里，使用 API 请求结果来更新应用的 state。
-        dispatch(receivePosts(subreddit, eval("(" + json + ")")))
+        dispatch(receivePosts(eval("(" + json + ")"), dataName))
       );
   };
 }
 
-function shouldFetchPosts(state, subreddit) {
-  const posts = state.postsBySubreddit[subreddit];
+function shouldFetchPosts(state, url) {
+  const posts = state.postsBySubreddit[url];
   if (!posts) {
     return true;
   } else if (posts.isFetching) {
@@ -101,7 +98,7 @@ function shouldFetchPosts(state, subreddit) {
   }
 }
 
-export function fetchPostsIfNeeded(subreddit) {
+export function fetchPostsIfNeeded(url, params, dataName) {
   // 注意这个函数也接收了 getState() 方法
   // 它让你选择接下来 dispatch 什么。
 
@@ -109,9 +106,9 @@ export function fetchPostsIfNeeded(subreddit) {
   // 减少网络请求很有用。
 
   return (dispatch, getState) => {
-    if (shouldFetchPosts(getState(), subreddit)) {
+    if (shouldFetchPosts(getState(), url)) {
       // 在 thunk 里 dispatch 另一个 thunk！
-      return dispatch(fetchPosts(subreddit));
+      return dispatch(fetchPosts(url, params, dataName));
     } else {
       // 告诉调用代码不需要再等待。
       return Promise.resolve();

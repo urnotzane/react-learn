@@ -7,7 +7,7 @@ function posts(
   state = {
     isFetching: false,
     didInvalidate: false,
-    items: []
+    json: {}
   },
   action
 ) {
@@ -21,7 +21,7 @@ function posts(
       return Object.assign({}, state, {
         isFetching: false,
         didInvalidate: false,
-        items: action.posts,
+        json: action.posts,
         lastUpdated: action.receivedAt
       })
     default:
@@ -34,7 +34,7 @@ function postsBySubreddit(state = [], action) {
     case RECEIVE_POSTS:
     case REQUEST_POSTS:
       return Object.assign({}, state, {
-        [action.subreddit]: posts(state[action.subreddit], action)
+        [action.dataName]: posts(state[action.dataName], action)
       })
     default:
       return state
