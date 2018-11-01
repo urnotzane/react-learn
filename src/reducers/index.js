@@ -1,7 +1,6 @@
-import { combineReducers } from 'redux';
-import {todos ,postsBySubreddit } from './todos'
+import { combineReducers } from "redux";
+import { fetchData } from "./fetchData";
 
 export default combineReducers({
-  todos,
-  postsBySubreddit
-})
+  fetchData
+});

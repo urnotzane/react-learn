@@ -36,16 +36,16 @@ export function receivePosts(json, dataName) {
   return {
     type: RECEIVE_POSTS,
     dataName,
-    posts: json,
+    data: json,
     receivedAt: Date.now()
   };
 }
 
 // 来看一下我们写的第一个 thunk action 创建函数！
 // 虽然内部操作不同，你可以像其它 action 创建函数 一样使用它：
-// store.dispatch(fetchPosts('reactjs'))
+// store.dispatch(fetchRequest('reactjs'))
 
-function fetchPosts(url, params, dataName) {
+function fetchRequest(url, params, dataName) {
   // Thunk middleware 知道如何处理函数。
   // 这里把 dispatch 方法通过参数的形式传给函数，
   // 以此来让它自己也能 dispatch action。
@@ -76,7 +76,6 @@ function fetchPosts(url, params, dataName) {
         // 不要使用 catch，因为会捕获
         // 在 dispatch 和渲染中出现的任何错误，
         // 导致 'Unexpected batch number' 错误。
-        // https://github.com/facebook/react/issues/6895
         error => console.log("An error occurred.", error)
       )
       .then(json =>
@@ -87,18 +86,18 @@ function fetchPosts(url, params, dataName) {
   };
 }
 
-function shouldFetchPosts(state, url) {
-  const posts = state.postsBySubreddit[url];
-  if (!posts) {
+function shouldFetchPosts(state, dataName) {
+  const data = state.fetchData[dataName];
+  if (!data) {
     return true;
-  } else if (posts.isFetching) {
+  } else if (data.isFetching) {
     return false;
   } else {
-    return posts.didInvalidate;
+    return data.didInvalidate;
   }
 }
 
-export function fetchPostsIfNeeded(url, params, dataName) {
+export function fetchRequestIfNeeded(url, params, dataName) {
   // 注意这个函数也接收了 getState() 方法
   // 它让你选择接下来 dispatch 什么。
 
@@ -106,9 +105,9 @@ export function fetchPostsIfNeeded(url, params, dataName) {
   // 减少网络请求很有用。
 
   return (dispatch, getState) => {
-    if (shouldFetchPosts(getState(), url)) {
+    if (shouldFetchPosts(getState(), dataName)) {
       // 在 thunk 里 dispatch 另一个 thunk！
-      return dispatch(fetchPosts(url, params, dataName));
+      return dispatch(fetchRequest(url, params, dataName));
     } else {
       // 告诉调用代码不需要再等待。
       return Promise.resolve();
