@@ -1,6 +1,6 @@
 import React from 'react'
 import { fetchPostsIfNeeded } from '../actions'
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 
 const AddTodo = ({ dispatch }) => {
   let input
@@ -16,6 +16,7 @@ const AddTodo = ({ dispatch }) => {
         <input ref={node => input = node} />
         <button type="submit">添加</button>
       </form>
+      
     </div>
   )
 }
