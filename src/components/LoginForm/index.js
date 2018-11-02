@@ -5,8 +5,20 @@ import fetchRequestIfNeeded from "../../middleware/api";
 import { connect } from "react-redux";
 import LoginItem from "./LoginItem";
 import LoginSubmit from "./LoginSubmit";
+import store from "../../store/store";
+
+const mapStateToProps = (state) => {
+  return {
+    ...state.fetchData.LoginData
+  }
+}
+
+const mapDispatchToProps = dispatch => ({
+  fetchRequestIfNeeded: (url, params, dataName) => dispatch(fetchRequestIfNeeded(url, params, dataName))
+})
 
 class LoginForm extends React.Component {
+  state = { ...store.getState('fetchData').LoginData }
   componentDidMount() {
     console.log(this);
   }
@@ -16,7 +28,8 @@ class LoginForm extends React.Component {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        this.props.dispatch(fetchRequestIfNeeded('/Login/Login', values, 'LoginData'));
+        this.props.fetchRequestIfNeeded('/Login/Login', values, 'LoginData')
+        console.log(this.state)
       }
     });
   };
@@ -42,4 +55,4 @@ class LoginForm extends React.Component {
 
 const Login = Form.create()(LoginForm);
 
-export default connect()(Login);
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
