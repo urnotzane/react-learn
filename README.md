@@ -1,0 +1,7 @@
+- 学习react-redux
+- 理解react-redux的原理
+- 尝试简单的todo应用
+- applyMiddleware
+- 试着做一个异步action
+- 优化异步action，逻辑拆分，简化异步action
+- 编写fetch请求函数
