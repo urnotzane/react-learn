@@ -1,7 +1,7 @@
 import React from "react";
 import "./index.less";
 import { Form, Card } from "antd";
-import { fetchRequestIfNeeded } from "../../actions";
+import fetchRequestIfNeeded from "../../middleware/api";
 import { connect } from "react-redux";
 import LoginItem from "./LoginItem";
 import LoginSubmit from "./LoginSubmit";
