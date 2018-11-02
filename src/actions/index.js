@@ -50,7 +50,7 @@ function fetchRequest(url, params, dataName) {
   // 这里把 dispatch 方法通过参数的形式传给函数，
   // 以此来让它自己也能 dispatch action。
 
-  return function(dispatch) {
+  return function (dispatch) {
     // 首次 dispatch：更新应用的 state 来通知
     // API 请求发起了。
 
@@ -97,6 +97,12 @@ function shouldFetchPosts(state, dataName) {
   }
 }
 
+/** 
+ * 请求数据的函数
+ * @param url 请求地址
+ * @param params 请求参数
+ * @param dataName 请求的数据命名
+*/
 export function fetchRequestIfNeeded(url, params, dataName) {
   // 注意这个函数也接收了 getState() 方法
   // 它让你选择接下来 dispatch 什么。

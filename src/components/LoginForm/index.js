@@ -1,8 +1,10 @@
 import React from "react";
-import { Form, Button } from "antd";
+import "./index.less";
+import { Form, Card } from "antd";
 import { fetchRequestIfNeeded } from "../../actions";
 import { connect } from "react-redux";
-import FormItem from "./FormItem";
+import LoginItem from "./LoginItem";
+import LoginSubmit from "./LoginSubmit";
 
 class LoginForm extends React.Component {
   componentDidMount() {
@@ -14,18 +16,25 @@ class LoginForm extends React.Component {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        this.props.dispatch(fetchRequestIfNeeded('/Login/Login',values, 'LoginData'));
+        this.props.dispatch(fetchRequestIfNeeded('/Login/Login', values, 'LoginData'));
       }
     });
   };
 
   render() {
     return (
-      <div>
-        <Form onSubmit={this.handleSubmit}>
-          <FormItem getFieldDecorator={this.props.form.getFieldDecorator} />
-          <Button htmlType="submit">提交</Button>
-        </Form>
+      <div className="login-view">
+        <Card
+          title="用户登录"
+          className="login-card"
+          headStyle={{ fontWeight: "bold", color: "#1890ff" }}
+          hoverable={true}
+        >
+          <Form onSubmit={this.handleSubmit} className="login-form">
+            <LoginItem getFieldDecorator={this.props.form.getFieldDecorator} />
+            <LoginSubmit />
+          </Form>
+        </Card>
       </div>
     );
   }

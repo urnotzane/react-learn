@@ -10,7 +10,6 @@ ReactDOM.render(
     <Router>
       <Route path="/" component={App} />
     </Router>
-    {/* <App /> */}
   </Provider>,
   document.getElementById("root")
 );

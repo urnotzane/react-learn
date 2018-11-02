@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { Form, Input, Icon } from "antd";
 
 const FormItem = Form.Item;
-const FormItemCom = ({ getFieldDecorator }) => (
+const LoginItem = ({ getFieldDecorator }) => (
   <div>
     <FormItem>
       {getFieldDecorator("LoginName", {
@@ -29,8 +29,8 @@ const FormItemCom = ({ getFieldDecorator }) => (
   </div>
 );
 
-FormItemCom.prototype = {
+LoginItem.prototype = {
   getFieldDecorator: PropTypes.func.isRequired
 };
 
-export default FormItemCom;
+export default LoginItem;
