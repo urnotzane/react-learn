@@ -1,5 +1,5 @@
 - 学习react-redux
-- 理解react-redux的原理
+- 理解react-redux的原理：[大神教程](https://segmentfault.com/a/1190000012976767)
 - 尝试简单的todo应用
 - applyMiddleware
 - 试着做一个异步action
