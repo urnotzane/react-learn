@@ -137,7 +137,6 @@ const fetchRequestIfNeeded = (url, params, dataName, method) => {
   return (dispatch, getState) => {
     if (shouldFetchPosts(getState(), dataName)) {
       // 在 thunk 里 dispatch 另一个 thunk！
-      console.log(method)
       switch (method) {
         case 'get':
           return dispatch(UtilFetch.get(url, params, dataName));
