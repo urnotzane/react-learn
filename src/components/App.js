@@ -1,5 +1,5 @@
 import React from 'react'
-import LoginForm from './LoginForm/index'
+import LoginForm from '../containers/LoginForm'
 
 const App = () => (
   <div>
