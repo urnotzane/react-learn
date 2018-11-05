@@ -8,7 +8,7 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  fetchRequestIfNeeded: (url, params, dataName) => dispatch(fetchRequestIfNeeded(url, params, dataName))
+  fetchRequestIfNeeded: (url, params, dataName, method) => dispatch(fetchRequestIfNeeded(url, params, dataName, method))
 })
 
 export default connect(

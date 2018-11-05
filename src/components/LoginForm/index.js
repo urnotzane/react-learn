@@ -10,12 +10,14 @@ class LoginForm extends React.Component {
     console.log(this)
   }
 
-  // 表单提交
+  /**
+   * @todo 表单提交
+   */
   handleSubmit = e => {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        this.props.fetchRequestIfNeeded('/Login/Login', values, 'LoginData')
+        this.props.fetchRequestIfNeeded('/Login/Login', values, 'LoginData', 'get')
         console.log(this)
       }
     });
