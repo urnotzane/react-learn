@@ -69,27 +69,30 @@ UtilFetch.post = (url, params, dataName) => {
   return function (dispatch) {
     dispatch(requestFetch(dataName))
 
-    return fetch(`/api${url}`, {
-      method: "POST",
-      credentials: "include", //包含cookie
-      body: JSON.stringify(params),
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json"
-      }
+    return new Promise((resolve, reject) => {
+      fetch(`/api${url}`, {
+        method: "POST",
+        credentials: "include", //包含cookie
+        body: JSON.stringify(params),
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json"
+        }
+      })
+        .then(
+          response => response.text(),
+          // 不要使用 catch，因为会捕获
+          // 在 dispatch 和渲染中出现的任何错误，
+          // 导致 'Unexpected batch number' 错误。
+          error => console.log("An error occurred.", error)
+        )
+        .then(json => {
+          // 可以多次 dispatch！
+          // 这里，使用 API 请求结果来更新应用的 state。
+          dispatch(receiveFetch(eval("(" + json + ")"), dataName));
+          resolve()
+        });
     })
-      .then(
-        response => response.text(),
-        // 不要使用 catch，因为会捕获
-        // 在 dispatch 和渲染中出现的任何错误，
-        // 导致 'Unexpected batch number' 错误。
-        error => console.log("An error occurred.", error)
-      )
-      .then(json => {
-        // 可以多次 dispatch！
-        // 这里，使用 API 请求结果来更新应用的 state。
-        dispatch(receiveFetch(eval("(" + json + ")"), dataName));
-      });
   };
 }
 
