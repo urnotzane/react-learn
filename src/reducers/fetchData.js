@@ -14,7 +14,13 @@ function posts(
     case "FETCH_REQUEST_FULFILLED":
       return Object.assign({}, state, {
         isFetching: false,
-        payload: action.payload
+        payload: action.payload,
+        IsSuccess: true
+      });
+    case "FETCH_REQUEST_REJECTED":
+      return Object.assign({}, state, {
+        isFetching: false,
+        IsSuccess: false
       });
     default:
       return state;
