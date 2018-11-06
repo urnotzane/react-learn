@@ -100,7 +100,8 @@ UtilFetch.get = (url, params) => {
         // 可以多次 dispatch！
         // 这里，使用 API 请求结果来更新应用的 state。
         if (url.indexOf("NavNodes") > -1) {
-          resolve(json);
+          json = json.replace("var models=", "");
+          resolve(eval("(" + json + ")"));
         } else {
           resolve(eval("(" + json + ")"));
         }
@@ -113,8 +114,9 @@ UtilFetch.get = (url, params) => {
  * get/post/upload/delete
  * @param url 请求地址
  * @param params 请求参数
+ * @param method get/post
  */
-const fetchRequestIfNeeded = (url, params, method) => {
+const fetchRequestIfNeeded = (url, method, params) => {
   return (dispatch, getState) => {
     if (shouldFetchPosts(getState())) {
       // 在 thunk 里 dispatch 另一个 thunk！

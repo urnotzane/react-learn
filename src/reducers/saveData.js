@@ -1,5 +1,5 @@
 /**
- * 用来存储公共数据
+ * 用来存储公共数据的reducer
  * @param {Object} state
  * @param {Function} action
  */

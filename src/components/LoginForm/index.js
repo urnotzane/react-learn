@@ -5,6 +5,9 @@ import LoginItem from "./LoginItem";
 import LoginSubmit from "./LoginSubmit";
 
 class LoginForm extends React.Component {
+  state = {
+    loading: false
+  };
   componentDidMount() {
     console.log(this);
   }
@@ -16,12 +19,20 @@ class LoginForm extends React.Component {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
+        this.setState({ loading: true });
         this.props
-          .fetchRequestIfNeeded("/Login/Login", values, "post")
+          .fetchRequestIfNeeded("/Login/Login", "post", values)
           .then(json => {
             if (json.value && json.value.State === 0) {
-              this.props.saveData(json.value, 'LoginData');
-              this.props.history.push("/Home");
+              this.props.saveData(json.value, "LoginData");
+              /**获取导航菜单 */
+              this.props
+                .fetchRequestIfNeeded("/Home/NavNodes", "get")
+                .then(json => {
+                  this.props.saveData(json.value, "MenuList");
+                  this.setState({ loading: false });
+                  this.props.history.push("/Home");
+                });
             }
           });
       }
@@ -39,7 +50,7 @@ class LoginForm extends React.Component {
         >
           <Form onSubmit={this.handleSubmit} className="login-form">
             <LoginItem getFieldDecorator={this.props.form.getFieldDecorator} />
-            <LoginSubmit loading={this.props.LoginData.isFetching} />
+            <LoginSubmit loading={this.state.loading} />
           </Form>
         </Card>
       </div>

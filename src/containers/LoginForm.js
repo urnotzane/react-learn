@@ -8,8 +8,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchRequestIfNeeded: (url, params, method) =>
-    dispatch(fetchRequestIfNeeded(url, params, method)),
+  fetchRequestIfNeeded: (url, method, params) =>
+    dispatch(fetchRequestIfNeeded(url, method, params)),
   saveData: (data, dataName) => dispatch(saveData(data, dataName))
 });
 

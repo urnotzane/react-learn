@@ -4,7 +4,7 @@ import fetchRequestIfNeeded from "../middleware/api";
 import { saveData } from "../actions";
 
 const mapStateToProps = state => ({
-  NavData: state.fetchData.NavData || { isFetching: false }
+  // MenuList: state.commonData.MenuList || {}
 });
 
 const mapDispatchToProps = dispatch => ({
