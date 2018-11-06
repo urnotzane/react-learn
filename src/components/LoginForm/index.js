@@ -29,7 +29,7 @@ class LoginForm extends React.Component {
               this.props
                 .fetchRequestIfNeeded("/Home/NavNodes", "get")
                 .then(json => {
-                  this.props.saveData(json.value, "MenuList");
+                  localStorage.setItem('MenuList', JSON.stringify(json.value))
                   this.setState({ loading: false });
                   this.props.history.push("/Home");
                 });
