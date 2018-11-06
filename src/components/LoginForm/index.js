@@ -13,7 +13,7 @@ class LoginForm extends React.Component {
   }
 
   /**
-   * @todo 表单提交
+   * @todo 表单提交=>存储到公共redux=>获取导航菜单=>存储到公共redux
    */
   handleSubmit = e => {
     e.preventDefault();
