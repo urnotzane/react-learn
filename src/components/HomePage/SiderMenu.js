@@ -5,6 +5,12 @@ import { Layout, Menu, Icon } from "antd";
 const { Sider } = Layout;
 const SubMenu = Menu.SubMenu;
 
+/**
+ * @module 右侧菜单的组件
+ * @param {array} MenuList 菜单数组
+ * @param {bool} collapsed 向右展开
+ * @param {function} onCollapse 是否展开的函数
+ */
 const SiderMenu = ({ MenuList, collapsed, onCollapse }) => (
   <Sider collapsible collapsed={collapsed} onCollapse={onCollapse}>
     <div className="logo" />
