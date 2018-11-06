@@ -5,9 +5,8 @@ import LoginItem from "./LoginItem";
 import LoginSubmit from "./LoginSubmit";
 
 class LoginForm extends React.Component {
-
   componentDidMount() {
-    console.log(this)
+    console.log(this);
   }
 
   /**
@@ -17,9 +16,14 @@ class LoginForm extends React.Component {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        this.props.fetchRequestIfNeeded('/Login/Login', values, 'LoginData', 'post').then(json=>{
-          console.log(json)
-        })
+        this.props
+          .fetchRequestIfNeeded("/Login/Login", values, "post")
+          .then(json => {
+            if (json.value && json.value.State === 0) {
+              this.props.saveData(json.value, 'LoginData');
+              this.props.history.push("/Home");
+            }
+          });
       }
     });
   };

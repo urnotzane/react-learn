@@ -14,29 +14,28 @@ function posts(
     case "FETCH_REQUEST_FULFILLED":
       return Object.assign({}, state, {
         isFetching: false,
-        payload: action.payload,
-        IsSuccess: true
+        payload: action.payload
       });
     case "FETCH_REQUEST_REJECTED":
       return Object.assign({}, state, {
-        isFetching: false,
-        IsSuccess: false
+        isFetching: false
       });
     default:
       return state;
   }
 }
 
-function fetchData(state = [], action) {
+function fetchData(state = {}, action) {
   switch (action.type) {
+    case "FETCH_REQUEST_PENDING":
     case "FETCH_REQUEST_FULFILLED":
-    case "FETCH_REQUEST":
+    case "FETCH_REQUEST_REJECTED":
       return Object.assign({}, state, {
-        data: posts(state, action)
+        ...posts(state, action)
       });
     default:
       return state;
   }
 }
 
-export { fetchData };
+export default fetchData

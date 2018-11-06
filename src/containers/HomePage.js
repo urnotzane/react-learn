@@ -1,17 +1,19 @@
-import { connect } from 'react-redux'
-import HomePage from '../components/HomePage'
+import { connect } from "react-redux";
+import HomePage from "../components/HomePage";
 import fetchRequestIfNeeded from "../middleware/api";
+import { saveData } from "../actions";
 
-
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   NavData: state.fetchData.NavData || { isFetching: false }
-})
+});
 
 const mapDispatchToProps = dispatch => ({
-  fetchRequestIfNeeded: (url, params, dataName, method) => dispatch(fetchRequestIfNeeded(url, params, dataName, method))
-})
+  fetchRequestIfNeeded: (url, params, method) =>
+    dispatch(fetchRequestIfNeeded(url, params, method)),
+  saveData: (data, dataName) => dispatch(saveData(data, dataName))
+});
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(HomePage)
+)(HomePage);

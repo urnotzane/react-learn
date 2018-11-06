@@ -1,28 +1,14 @@
 import "whatwg-fetch";
-import { FETCH_REQUEST, FETCH_RECEIVE } from "../actions";
+import { FETCH_REQUEST } from "../actions";
 
 /**
  * @todo 开始请求数据的action
- * @param {string} dataName - 数据的命名
+ * @param {string} promise - 异步promise请求
  */
-export const requestFetch = promise => {
+const requestFetch = promise => {
   return {
     type: FETCH_REQUEST,
     payload: promise
-  };
-};
-
-/**
- * @todo 已接收到请求数据的action
- * @param {Object} json - 请求返回的数据
- * @param {string} dataName - 数据的命名
- */
-export const receiveFetch = (json, dataName) => {
-  return {
-    type: FETCH_RECEIVE,
-    dataName,
-    data: json,
-    receivedAt: Date.now()
   };
 };
 
@@ -64,7 +50,7 @@ const UtilFetch = {};
 /**
  * POST请求
  */
-UtilFetch.post = (url, params, dataName) => {
+UtilFetch.post = (url, params) => {
   return new Promise((resolve, reject) => {
     fetch(`/api${url}`, {
       method: "POST",
@@ -93,7 +79,7 @@ UtilFetch.post = (url, params, dataName) => {
 /**
  * GET请求
  */
-UtilFetch.get = (url, params, dataName) => {
+UtilFetch.get = (url, params) => {
   return new Promise(resolve => {
     fetch(FormatParams(url, params), {
       method: "GET",
@@ -127,17 +113,16 @@ UtilFetch.get = (url, params, dataName) => {
  * get/post/upload/delete
  * @param url 请求地址
  * @param params 请求参数
- * @param dataName 请求的数据命名
  */
-const fetchRequestIfNeeded = (url, params, dataName, method) => {
+const fetchRequestIfNeeded = (url, params, method) => {
   return (dispatch, getState) => {
-    if (shouldFetchPosts(getState(), dataName)) {
+    if (shouldFetchPosts(getState())) {
       // 在 thunk 里 dispatch 另一个 thunk！
       switch (method) {
         case "get":
-          return dispatch(requestFetch(UtilFetch.get(url, params, dataName)));
+          return dispatch(requestFetch(UtilFetch.get(url, params)));
         case "post":
-          return dispatch(requestFetch(UtilFetch.post(url, params, dataName)));
+          return dispatch(requestFetch(UtilFetch.post(url, params)));
         default:
       }
     } else {

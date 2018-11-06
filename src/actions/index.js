@@ -23,4 +23,11 @@ export const FETCH_REQUEST = "FETCH_REQUEST";
 
 export const FETCH_RECEIVE = "FETCH_RECEIVE";
 
-
+/**存储公共数据的action */
+export const saveData = (data, dataName) => {
+  return {
+    type: "SAVE_DATA",
+    [dataName]: data,
+    dataName
+  };
+};

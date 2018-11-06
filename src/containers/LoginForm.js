@@ -1,17 +1,19 @@
-import { connect } from 'react-redux'
-import LoginForm from '../components/LoginForm'
+import { connect } from "react-redux";
+import LoginForm from "../components/LoginForm";
 import fetchRequestIfNeeded from "../middleware/api";
+import { saveData } from "../actions";
 
-
-const mapStateToProps = (state) => ({
-  LoginData: state.fetchData.LoginData || { isFetching: false }
-})
+const mapStateToProps = state => ({
+  LoginData: state.fetchData || { isFetching: false }
+});
 
 const mapDispatchToProps = dispatch => ({
-  fetchRequestIfNeeded: (url, params, dataName, method) => dispatch(fetchRequestIfNeeded(url, params, dataName, method))
-})
+  fetchRequestIfNeeded: (url, params, method) =>
+    dispatch(fetchRequestIfNeeded(url, params, method)),
+  saveData: (data, dataName) => dispatch(saveData(data, dataName))
+});
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(LoginForm)
+)(LoginForm);
