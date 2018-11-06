@@ -2,24 +2,19 @@
 
 function posts(
   state = {
-    isFetching: false,
-    didInvalidate: false,
-    data: {}
+    isFetching: false
   },
   action
 ) {
   switch (action.type) {
     case "FETCH_REQUEST_PENDING":
       return Object.assign({}, state, {
-        isFetching: true,
-        didInvalidate: false
+        isFetching: true
       });
     case "FETCH_REQUEST_FULFILLED":
       return Object.assign({}, state, {
         isFetching: false,
-        didInvalidate: false,
-        data: action.data,
-        lastUpdated: action.receivedAt
+        payload: action.payload
       });
     default:
       return state;
@@ -31,7 +26,7 @@ function fetchData(state = [], action) {
     case "FETCH_REQUEST_FULFILLED":
     case "FETCH_REQUEST":
       return Object.assign({}, state, {
-        [action.dataName]: posts(state[action.dataName], action)
+        data: posts(state, action)
       });
     default:
       return state;
