@@ -19,8 +19,8 @@ export const deleteTodo = id => {
   };
 };
 
-export const REQUEST_POSTS = "REQUEST_POSTS";
+export const FETCH_REQUEST = "FETCH_REQUEST";
 
-export const RECEIVE_POSTS = "RECEIVE_POSTS";
+export const FETCH_RECEIVE = "FETCH_RECEIVE";
 
 

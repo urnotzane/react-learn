@@ -17,10 +17,8 @@ class LoginForm extends React.Component {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        this.props.fetchRequestIfNeeded('/Login/Login', values, 'LoginData', 'post').then(()=>{
-          if(this.props.LoginData.data.State===0){
-            this.props.history.push('/Home')
-          }
+        this.props.fetchRequestIfNeeded('/Login/Login', values, 'LoginData', 'post').then(json=>{
+          console.log(json)
         })
       }
     });

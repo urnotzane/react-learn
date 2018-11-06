@@ -1,4 +1,4 @@
-import { REQUEST_POSTS, RECEIVE_POSTS } from "../actions";
+// import { FETCH_REQUEST_PENDING, FETCH_REQUEST_FULFILLED } from "../actions";
 
 function posts(
   state = {
@@ -9,12 +9,12 @@ function posts(
   action
 ) {
   switch (action.type) {
-    case REQUEST_POSTS:
+    case "FETCH_REQUEST_PENDING":
       return Object.assign({}, state, {
         isFetching: true,
         didInvalidate: false
       });
-    case RECEIVE_POSTS:
+    case "FETCH_REQUEST_FULFILLED":
       return Object.assign({}, state, {
         isFetching: false,
         didInvalidate: false,
@@ -28,8 +28,8 @@ function posts(
 
 function fetchData(state = [], action) {
   switch (action.type) {
-    case RECEIVE_POSTS:
-    case REQUEST_POSTS:
+    case "FETCH_REQUEST_FULFILLED":
+    case "FETCH_REQUEST":
       return Object.assign({}, state, {
         [action.dataName]: posts(state[action.dataName], action)
       });
