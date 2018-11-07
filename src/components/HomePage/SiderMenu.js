@@ -11,14 +11,17 @@ const SubMenu = Menu.SubMenu;
  * @param {bool} collapsed 向右展开
  * @param {function} onCollapse 是否展开的函数
  */
-const SiderMenu = ({ MenuList, collapsed, onCollapse }) => (
+const SiderMenu = ({ MenuList, collapsed, onCollapse, handleMenuClick }) => (
   <Sider
     collapsible
     collapsed={collapsed}
     onCollapse={onCollapse}
     className="sider-menu">
     <div className="logo" />
-    <Menu theme="dark" mode="inline">
+    <Menu
+      theme="dark"
+      mode="inline"
+      onClick={handleMenuClick}>
       {MenuList.map((item, index) => (
         <SubMenu
           key={"menu_" + index}

@@ -4,7 +4,7 @@ import { Layout, Breadcrumb, Modal } from "antd";
 import SiderMenu from "./SiderMenu";
 import HomeHeader from "./HomeHeader";
 
-const { Header, Content, Footer } = Layout;
+const { Content, Footer } = Layout;
 
 class HomePage extends React.Component {
   state = {
@@ -43,6 +43,12 @@ class HomePage extends React.Component {
     this.setState({ collapsed });
   };
 
+  /**点击菜单事件 */
+  handleMenuClick = e => {
+    console.log(e)
+    this.props.history.push('/' + e.key)
+  };
+
   render() {
     return (
       <div className='container'>
@@ -51,6 +57,7 @@ class HomePage extends React.Component {
             MenuList={this.state.MenuList}
             collapsed={this.state.collapsed}
             onCollapse={this.onCollapse}
+            handleMenuClick={this.handleMenuClick}
           />
           <Layout>
             <HomeHeader />
