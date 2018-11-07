@@ -1,6 +1,6 @@
 import React from "react";
 import "./index.less";
-import { Layout, Breadcrumb, Modal } from "antd";
+import { Layout, Modal } from "antd";
 import SiderMenu from "./SiderMenu";
 import HomeHeader from "./HomeHeader";
 
@@ -50,7 +50,7 @@ class HomePage extends React.Component {
 
   render() {
     return (
-      <div className='container'>
+      <div className='home-container'>
         <Layout style={{ minHeight: "100vh" }}>
           <SiderMenu
             MenuList={this.state.MenuList}
@@ -61,10 +61,6 @@ class HomePage extends React.Component {
           <Layout>
             <HomeHeader />
             <Content>
-              {/* <Breadcrumb>
-                <Breadcrumb.Item>User</Breadcrumb.Item>
-                <Breadcrumb.Item>Bill</Breadcrumb.Item>
-              </Breadcrumb> */}
               {/* <div style={{ padding: 24, background: "#fff", minHeight: 360 }}>
                 Bill is a cat.
               </div> */}

@@ -1,7 +1,10 @@
 import React from "react";
+import PageHeader from './PageHeader'
+import './index.less'
 
-
-const HomeHeader = () => (
- <div>123</div> 
+const OrdersEntrustView = () => (
+ <div className="OrdersEntrustView-container">
+  <PageHeader />
+ </div> 
 )
-export default HomeHeader;
+export default OrdersEntrustView;
