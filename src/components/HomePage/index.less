@@ -1,0 +1,22 @@
+.container {
+  .sider-menu {
+    position: fixed;
+    left: 0;
+    height: 100vh;
+    overflow: auto;
+    .logo {
+      height: 32px;
+      background: rgba(255, 255, 255, .2);
+      margin: 16px;
+    }
+  } // 滚动条整体背景
+  .sider-menu::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+    background-color: #001529;
+  } // 滚动条滑块
+  .sider-menu::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 5px;
+  }
+}

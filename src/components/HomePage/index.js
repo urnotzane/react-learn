@@ -2,6 +2,7 @@ import React from "react";
 import "./index.less";
 import { Layout, Breadcrumb, Modal } from "antd";
 import SiderMenu from "./SiderMenu";
+import HomeHeader from "./HomeHeader";
 
 const { Header, Content, Footer } = Layout;
 
@@ -44,7 +45,7 @@ class HomePage extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className='container'>
         <Layout style={{ minHeight: "100vh" }}>
           <SiderMenu
             MenuList={this.state.MenuList}
@@ -52,18 +53,18 @@ class HomePage extends React.Component {
             onCollapse={this.onCollapse}
           />
           <Layout>
-            <Header style={{ background: "#fff", padding: 0 }} />
-            <Content style={{ margin: "0 16px" }}>
-              <Breadcrumb style={{ margin: "16px 0" }}>
+            <HomeHeader />
+            <Content >
+              {/* <Breadcrumb>
                 <Breadcrumb.Item>User</Breadcrumb.Item>
                 <Breadcrumb.Item>Bill</Breadcrumb.Item>
-              </Breadcrumb>
-              <div style={{ padding: 24, background: "#fff", minHeight: 360 }}>
+              </Breadcrumb> */}
+              {/* <div style={{ padding: 24, background: "#fff", minHeight: 360 }}>
                 Bill is a cat.
-              </div>
+              </div> */}
             </Content>
             <Footer style={{ textAlign: "center" }}>
-              Truck UAT ©2018 Created by Zane
+              UAT ©2018 Created by Zane
             </Footer>
           </Layout>
         </Layout>
