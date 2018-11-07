@@ -4,7 +4,7 @@ import { Provider } from "react-redux";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import store from './store/store'
 import LoginForm from "./containers/LoginForm";
-import HomePage from "./containers/HomePage";
+import HomePage from "./components/App";
 
 ReactDOM.render(
   <Provider store={store}>
