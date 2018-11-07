@@ -46,7 +46,6 @@ class HomePage extends React.Component {
   /**点击菜单事件 */
   handleMenuClick = e => {
     console.log(e)
-    this.props.history.push('/' + e.key)
   };
 
   render() {
@@ -61,7 +60,7 @@ class HomePage extends React.Component {
           />
           <Layout>
             <HomeHeader />
-            <Content >
+            <Content>
               {/* <Breadcrumb>
                 <Breadcrumb.Item>User</Breadcrumb.Item>
                 <Breadcrumb.Item>Bill</Breadcrumb.Item>
@@ -69,6 +68,7 @@ class HomePage extends React.Component {
               {/* <div style={{ padding: 24, background: "#fff", minHeight: 360 }}>
                 Bill is a cat.
               </div> */}
+              {this.props.children}
             </Content>
             <Footer style={{ textAlign: "center" }}>
               UAT ©2018 Created by Zane

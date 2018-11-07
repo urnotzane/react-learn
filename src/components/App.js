@@ -1,16 +1,14 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { Route } from "react-router-dom";
 import HomePage from '../containers/HomePage'
-import createBrowserHistory from 'history/createBrowserHistory'
-
-const history = createBrowserHistory()
+import routes from '../router'
 
 const App = () => (
-  <Router>
-    <HomePage history={history}>
-
-    </HomePage>
-  </Router>
+  <HomePage>
+    {routes.map(item => (
+      <Route exact key={item.name} path={item.path} component={item.component} />
+    ))}
+  </HomePage>
 )
 
 export default App

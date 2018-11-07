@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { Layout, Menu, Icon } from "antd";
 
@@ -33,7 +34,11 @@ const SiderMenu = ({ MenuList, collapsed, onCollapse, handleMenuClick }) => (
           }
         >
           {item.children.map(menu => (
-            <Menu.Item key={menu.baseCode}>{menu.title}</Menu.Item>
+            <Menu.Item key={menu.baseCode}>
+              <Link to={'/Home/' + menu.baseCode}>
+                {menu.title}
+              </Link>
+            </Menu.Item>
           ))}
         </SubMenu>
       ))}
