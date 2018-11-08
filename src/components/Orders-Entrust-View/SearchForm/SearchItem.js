@@ -25,7 +25,7 @@ const SelectProps = {
  * @param {Object[]} SupplierOptions - 车牌数据
  */
 const SearchItem = ({ getFieldDecorator, customerOptions, DriverOptions, SupplierOptions }) => (
-  <div style={{ display: 'inline' }}>
+  <div className="form-not-button" style={{ display: 'inline' }}>
     <FormItem label="做柜时间">
       {getFieldDecorator("RangeDate", {
         rules: [{ required: false }]
