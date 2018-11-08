@@ -1,4 +1,4 @@
-import OrdersEntrustView from '../components/Orders-Entrust-View'
+import {OrdersEntrustView} from '../containers/Orders-Entrust-View'
 
 const routes = [
   {

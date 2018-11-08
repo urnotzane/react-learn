@@ -9,7 +9,9 @@ class FormCom extends React.Component {
   state = {
   };
 
-  componentDidMount() { }
+  componentDidMount() { 
+    console.log(this)
+  }
 
   componentWillUnmount() {
     this.setState = (state, callback) => {

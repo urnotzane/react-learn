@@ -9,7 +9,7 @@ const moment = require("moment");
 moment.locale("zh-cn");
 
 const SelectProps = {
-  style: { width: 180 },
+  style: { minWidth: 180 },
   defaultActiveFirstOption: false,
   showArrow: false,
   filterOption: true,

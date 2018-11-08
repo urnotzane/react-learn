@@ -1,14 +1,21 @@
 import React from "react";
 import PageHeader from './PageHeader'
 import './index.less'
-import SearchForm from './SearchForm'
+import { SearchForm } from '../../containers/Orders-Entrust-View'
 
-const OrdersEntrustView = () => (
-  <div className="OrdersEntrustView-container">
-    <PageHeader />
-    <div className="main-content">
-      <SearchForm />
-    </div>
-  </div>
-)
+class OrdersEntrustView extends React.Component {
+  componentDidMount() {
+    console.log(this)
+  }
+  render() {
+    return (
+      <div className="OrdersEntrustView-container">
+        <PageHeader />
+        <div className="main-content">
+          <SearchForm />
+        </div>
+      </div>
+    )
+  }
+}
 export default OrdersEntrustView;
