@@ -113,8 +113,8 @@ UtilFetch.get = (url, params) => {
  * 请求数据的函数
  * get/post/upload/delete
  * @param url 请求地址
- * @param params 请求参数
  * @param method get/post
+ * @param params 请求参数
  */
 const fetchRequestIfNeeded = (url, method, params) => {
   return (dispatch, getState) => {
