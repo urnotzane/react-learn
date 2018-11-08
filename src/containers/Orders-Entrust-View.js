@@ -2,13 +2,9 @@ import { connect } from "react-redux";
 import OrdersEntrust from "../components/Orders-Entrust-View";
 import SearchFormCom from "../components/Orders-Entrust-View/SearchForm";
 import fetchRequestIfNeeded from "../middleware/api";
-import { saveData } from "../actions";
+import { OrderEntrustData } from "../actions";
 
-const mapStateToProps = state => ({
-  OrderEntrustData: state.fetchData || {}
-});
-
-const mapStateToPropsCom = state => Object.assign({}, {
+const mapStateToProps = state => Object.assign({}, {
   customer: [],//客户
   Supplier: [],//车牌
   Driver: [],//司机
@@ -28,13 +24,13 @@ const mapStateToPropsCom = state => Object.assign({}, {
   CustomerContact: [],//客户联系人
   Employee: [],//业务员
   TradeWay: [],//贸易方式
-  ...state.fetchData.OrderEntrustData
+  ...state.OrderEntrustData
 })
 
 const mapDispatchToProps = dispatch => ({
   fetchRequestIfNeeded: (url, method, params) =>
     dispatch(fetchRequestIfNeeded(url, method, params)),
-  saveData: (data, dataName) => dispatch(saveData(data, dataName))
+  saveData: (data, dataName) => dispatch(OrderEntrustData(data, dataName))
 });
 
 const OrdersEntrustView = connect(
@@ -44,7 +40,7 @@ const OrdersEntrustView = connect(
 
 /**搜索表单 */
 const SearchForm = connect(
-  mapStateToPropsCom,
+  mapStateToProps,
   mapDispatchToProps
 )(SearchFormCom)
 

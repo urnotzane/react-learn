@@ -31,3 +31,11 @@ export const saveData = (data, dataName) => {
     dataName
   };
 };
+
+export const OrderEntrustData = (data, dataName) => {
+  return {
+    type: 'ORDER_ENTRUST_DATA',
+    [dataName]: data,
+    dataName
+  }
+}

@@ -16,10 +16,9 @@ class OrdersEntrustView extends React.Component {
     })
       .then(json => {
         console.log(json)
-        if (json.result) {
-          this.setState({
-            customer: json.Data
-          });
+        if (json.value) {
+          this.props.saveData(json.value.Data, 'customer')
+          console.log(this.props)
         }
       });
   };
@@ -30,7 +29,7 @@ class OrdersEntrustView extends React.Component {
       NameSort: 'Order'
     })
       .then(json => {
-        if (json.result) {
+        if (json.value) {
           this.setState({
             OrderProp: json.root
           });
@@ -41,7 +40,7 @@ class OrdersEntrustView extends React.Component {
   fetchPort = () => {
     this.props.fetchRequestIfNeeded("/api/Port/GetList", 'get', {})
       .then(json => {
-        if (json.result) {
+        if (json.value) {
           this.setState({
             Port: json.Data
           });
@@ -52,7 +51,7 @@ class OrdersEntrustView extends React.Component {
   fetchYard = () => {
     this.props.fetchRequestIfNeeded("/api/Yard/GetList", 'get', {})
       .then(json => {
-        if (json.result) {
+        if (json.value) {
           this.setState({
             Yard: json.Data
           });
@@ -63,7 +62,7 @@ class OrdersEntrustView extends React.Component {
   fetchCompany = () => {
     this.props.fetchRequestIfNeeded("/api/Partner/GetShipCompanyList", 'get', {})
       .then(json => {
-        if (json.result) {
+        if (json.value) {
           this.setState({
             Company: json.Data
           });
@@ -77,7 +76,7 @@ class OrdersEntrustView extends React.Component {
       NameSort: 'Order'
     })
       .then(json => {
-        if (json.result) {
+        if (json.value) {
           this.setState({
             ContainerType: json.root
           });
@@ -91,7 +90,7 @@ class OrdersEntrustView extends React.Component {
       NameSort: 'Order'
     })
       .then(json => {
-        if (json.result) {
+        if (json.value) {
           this.setState({
             CustomsDeclaration: json.root
           });
@@ -104,7 +103,7 @@ class OrdersEntrustView extends React.Component {
       parnterType: 3
     })
       .then(json => {
-        if (json.result) {
+        if (json.value) {
           this.setState({
             Motorcade: json.Data
           });
@@ -118,7 +117,7 @@ class OrdersEntrustView extends React.Component {
       NameSort: 'Order'
     })
       .then(json => {
-        if (json.result) {
+        if (json.value) {
           this.setState({
             DispatcherGroup: json.root
           });
@@ -131,7 +130,7 @@ class OrdersEntrustView extends React.Component {
       Code: 'SP_BusinessType'
     })
       .then(json => {
-        if (json.result) {
+        if (json.value) {
           this.setState({
             BusinessType: json.root
           });
@@ -145,7 +144,7 @@ class OrdersEntrustView extends React.Component {
       NameSort: 'Order'
     })
       .then(json => {
-        if (json.result) {
+        if (json.value) {
           this.setState({
             PaymentMethod: json.root
           });
@@ -159,7 +158,7 @@ class OrdersEntrustView extends React.Component {
       NameSort: 'Order'
     })
       .then(json => {
-        if (json.result) {
+        if (json.value) {
           this.setState({
             OrderStatus: json.root
           });
@@ -173,7 +172,7 @@ class OrdersEntrustView extends React.Component {
       NameSort: 'Order'
     })
       .then(json => {
-        if (json.result) {
+        if (json.value) {
           this.setState({
             Currency: json.root
           });
@@ -187,7 +186,7 @@ class OrdersEntrustView extends React.Component {
       NameSort: 'Order'
     })
       .then(json => {
-        if (json.result) {
+        if (json.value) {
           this.setState({
             OrderType: json.root
           });
@@ -198,7 +197,7 @@ class OrdersEntrustView extends React.Component {
   fetchCustomerContact = () => {
     this.props.fetchRequestIfNeeded("/api/PartnerContact/GetListNoDriver", 'get', {})
       .then(json => {
-        if (json.result) {
+        if (json.value) {
           this.setState({
             CustomerContact: json.Data
           });
@@ -209,7 +208,7 @@ class OrdersEntrustView extends React.Component {
   fetchEmployee = () => {
     this.props.fetchRequestIfNeeded("/Employee/Search", 'post', {})
       .then(json => {
-        if (json.result) {
+        if (json.value) {
           this.setState({
             Employee: json.root
           });
@@ -220,7 +219,7 @@ class OrdersEntrustView extends React.Component {
   fetchTradeWay = () => {
     this.props.fetchRequestIfNeeded("/Dictionary/DictGetChild", 'post', { Code: 'TradeWay' })
       .then(json => {
-        if (json.result) {
+        if (json.value) {
           this.setState({
             TradeWay: json.root
           });
