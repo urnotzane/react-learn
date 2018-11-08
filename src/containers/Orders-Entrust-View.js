@@ -30,7 +30,7 @@ const mapStateToProps = state => Object.assign({}, {
 const mapDispatchToProps = dispatch => ({
   fetchRequestIfNeeded: (url, method, params) =>
     dispatch(fetchRequestIfNeeded(url, method, params)),
-  saveData: (data, dataName) => dispatch(OrderEntrustData(data, dataName))
+  saveOrderEntrustData: (data, dataName) => dispatch(OrderEntrustData(data, dataName))
 });
 
 const OrdersEntrustView = connect(
