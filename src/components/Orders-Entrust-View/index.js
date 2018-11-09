@@ -90,10 +90,10 @@ class OrdersEntrustView extends React.Component {
   fetchSupplier = () => {
     this.props
       .fetchRequestIfNeeded("/api/Partner/GetList", "get", {
-        parnterType: 4
+        parnterType1: 4
       })
       .then(json => {
-        if (json.value) {
+        if (json.value.result) {
           this.props.saveOrderEntrustData(json.value.Data, "Supplier");
         }
       });
