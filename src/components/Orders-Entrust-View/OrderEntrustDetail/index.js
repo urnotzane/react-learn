@@ -1,25 +1,11 @@
-import React from 'react'
+import React from "react";
 import "./index.less";
 import "moment/locale/zh-cn";
-import {
-  Form,
-  Input,
-  Select,
-  Button,
-  DatePicker,
-  Tabs,
-  Spin,
-  Icon,
-  Divider,
-  Table,
-  Modal,
-  message
-} from "antd";
-import Base from './base'
+import { Form, Select, Tabs, Spin, Icon } from "antd";
+import Base from "./base";
+import Footer from "./footer";
 const TabPane = Tabs.TabPane;
-const { TextArea } = Input;
 const Option = Select.Option;
-const { RangePicker } = DatePicker;
 const moment = require("moment");
 moment.locale("zh-cn");
 
@@ -32,11 +18,11 @@ class OrderEntrustDetail extends React.Component {
     OrderDetail: {},
     OrderCostList: [],
     OrderEntrust: {
-      OrderNo: '',//事先声明，避免报错
+      OrderNo: "" //事先声明，避免报错
     },
     OrderFactoryList: [], //已选择的工厂
     OrderTruck: {
-      OrderNo: '',//事先声明，避免报错
+      OrderNo: "" //事先声明，避免报错
     },
     orderCostId: [],
     CustomerContact: [], //根据客户id搜索的客户联系人
@@ -58,9 +44,10 @@ class OrderEntrustDetail extends React.Component {
   }
   // 客户联系人
   fetchOrderDetail = () => {
-    this.props.fetchRequestIfNeeded("/api/OrderEntrust/GetVOrderByNo", 'get', {
-      orderNo: this.props.orderNo
-    })
+    this.props
+      .fetchRequestIfNeeded("/api/OrderEntrust/GetVOrderByNo", "get", {
+        orderNo: this.props.orderNo
+      })
       .then(json => {
         if (json.value.result) {
           this.setState({
@@ -72,9 +59,10 @@ class OrderEntrustDetail extends React.Component {
   //订单信息
   fetchOrderInfo = () => {
     this.setState({ loading: true });
-    this.props.fetchRequestIfNeeded("/api/OrderEntrust/GetViewOrderByOrderNo", 'get', {
-      orderNo: this.props.orderNo
-    })
+    this.props
+      .fetchRequestIfNeeded("/api/OrderEntrust/GetViewOrderByOrderNo", "get", {
+        orderNo: this.props.orderNo
+      })
       .then(json => {
         this.setState({ loading: false });
         if (json.value.result) {
@@ -135,9 +123,14 @@ class OrderEntrustDetail extends React.Component {
   };
   // 客户联系人
   fetchCustomerContact = (partnerId, OrderFactoryList) => {
-    this.props.fetchRequestIfNeeded("/api/PartnerContact/GetPartnerContactByPartnerId", 'get', {
-      partnerId
-    })
+    this.props
+      .fetchRequestIfNeeded(
+        "/api/PartnerContact/GetPartnerContactByPartnerId",
+        "get",
+        {
+          partnerId
+        }
+      )
       .then(json => {
         if (json.value.result) {
           this.setState({
@@ -148,14 +141,17 @@ class OrderEntrustDetail extends React.Component {
   };
   // 客户工厂
   fetchFactoryInHandling = (partnerId, OrderFactoryList) => {
-    this.props.fetchRequestIfNeeded("/api/FactoryInHandling/GetList", 'get', {
-      partnerId
-    })
+    this.props
+      .fetchRequestIfNeeded("/api/FactoryInHandling/GetList", "get", {
+        partnerId
+      })
       .then(json => {
         if (json.value.result) {
           OrderFactoryList.forEach((item, index) => {
             if (
-              json.value.Data.find(item1 => item1.Id === item.FactoryInHandlingId)
+              json.value.Data.find(
+                item1 => item1.Id === item.FactoryInHandlingId
+              )
             ) {
               OrderFactoryList[index] = json.value.Data.find(
                 item1 => item1.Id === item.FactoryInHandlingId
@@ -170,9 +166,29 @@ class OrderEntrustDetail extends React.Component {
       });
   };
 
+  // 表单提交
+  handleSubmit = e => {
+    e.preventDefault();
+    this.props.form.validateFields((err, values) => {
+      if (!err) {
+        for (let key in values) {
+          if (values[key] && typeof values[key] === "object") {
+            values[key] = moment(values[key]).format("YYYY-MM-DD");
+          }
+          if (!values[key]) {
+            values[key] = "";
+          }
+        }
+        console.log(values)
+        this.props.handleCancel();
+      } else {
+        console.log(err);
+      }
+    });
+  };
 
   render() {
-    const getFieldDecorator  = this.props.form.getFieldDecorator
+    const getFieldDecorator = this.props.form.getFieldDecorator;
     const customerOptions = this.props.customer.map(d => (
       <Option key={d.Id}>{d.ShortName}</Option>
     ));
@@ -217,7 +233,7 @@ class OrderEntrustDetail extends React.Component {
         }
         spinning={this.state.loading}
       >
-        <Form style={{ padding: "0.5em 0" }}>
+        <Form style={{ padding: "0.5em 0" }} onSubmit={this.handleSubmit}>
           <Tabs defaultActiveKey="1" onChange={callback} style={{ margin: 0 }}>
             <TabPane tab="基础信息" key="1">
               <Base
@@ -232,14 +248,14 @@ class OrderEntrustDetail extends React.Component {
                 OrderTruck={this.state.OrderTruck}
               />
             </TabPane>
-
           </Tabs>
+          <Footer />
         </Form>
       </Spin>
-    )
+    );
   }
 }
 
 const OrderEntrustDetailForm = Form.create()(OrderEntrustDetail);
 
-export default OrderEntrustDetailForm
+export default OrderEntrustDetailForm;

@@ -53,31 +53,7 @@ class OrdersEntrustView extends React.Component {
       return;
     };
   }
-
-  // 弹出框
-  handleOk = (e) => {
-    let detail = this.refs.OrderEntrustDetail
-    const wa = Form.create(detail)
-    console.log(wa)
-    wa.validateFields((err, values) => {
-      console.log(values)
-      if (!err) {
-        for (let key in values) {
-          if (values[key] && typeof values[key] === 'object') {
-            values[key] = moment(values[key]).format('YYYY-MM-DD')
-          }
-          if (!values[key]) {
-            values[key] = "";
-          }
-        }
-        this.setState({
-          visible: false,
-        });
-      } else {
-        console.log(err)
-      }
-    })
-  }
+  
   // 弹出框
   handleCancel = (e) => {
     this.setState({
@@ -384,12 +360,11 @@ class OrdersEntrustView extends React.Component {
         <Modal
           destroyOnClose={true}
           visible={this.state.visible}
-          onOk={this.handleOk}
-          confirmLoading={this.state.loading}
           onCancel={this.handleCancel}
           width="50%"
+          footer={null}
         >
-          <OrderEntrustDetail ref="OrderEntrustDetail" orderNo={this.state.DetailOrderNo} />
+          <OrderEntrustDetail ref="OrderEntrustDetail" handleCancel={this.handleCancel} orderNo={this.state.DetailOrderNo} />
         </Modal>
         <div className="main-content">
           <SearchForm setSearchData={this.setSearchData} />
