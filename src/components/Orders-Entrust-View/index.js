@@ -361,7 +361,7 @@ class OrdersEntrustView extends React.Component {
           destroyOnClose={true}
           visible={this.state.visible}
           onCancel={this.handleCancel}
-          width="50%"
+          width="60%"
           footer={null}
         >
           <OrderEntrustDetail ref="OrderEntrustDetail" handleCancel={this.handleCancel} orderNo={this.state.DetailOrderNo} />
