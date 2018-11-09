@@ -1,7 +1,7 @@
 import React from "react";
 import "./index.less";
 import "moment/locale/zh-cn";
-import { Form, Select, Tabs, Spin, Icon } from "antd";
+import { Form, Select, Tabs, Spin, Icon, message } from "antd";
 import Base from "./base";
 import Footer from "./footer";
 const TabPane = Tabs.TabPane;
@@ -184,6 +184,46 @@ class OrderEntrustDetail extends React.Component {
       } else {
         console.log(err);
       }
+    });
+  };
+
+  // 工厂删除
+  handleDelete = index => {
+    const OrderFactoryList = this.state.OrderFactoryList;
+    OrderFactoryList.splice(index, 1);
+    this.setState({ OrderFactoryList });
+  };
+  // 添加工厂;
+  handleAddFactory = () => {
+    if (this.state.FactoryInHandling.length <= this.state.OrderFactoryList.length) {
+      message.warning('暂无可选工厂')
+      return
+    };
+    this.setState({ visible: true });
+  };
+
+  // Select选中回调
+  onSelected = value => {
+    this.setState({ tempValue: value });
+  };
+
+  handleOk = e => {
+    const FactoryInHandling = this.state.FactoryInHandling;
+    const OrderFactoryList = this.state.OrderFactoryList;
+    const SelectId = this.state.tempValue;
+    if (OrderFactoryList.find(item => item.Id === +SelectId)) {
+      message.warning("不可重复选择");
+    } else {
+      OrderFactoryList.push(
+        FactoryInHandling.find(item => item.Id === +SelectId)
+      );
+      this.setState({ OrderFactoryList });
+    }
+  };
+
+  handleCancel = e => {
+    this.setState({
+      visible: false
     });
   };
 
