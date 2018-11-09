@@ -71,7 +71,7 @@ class OrderEntrustList extends React.Component {
       className: 'column-light',
       render: (text, record) => (
         <span>
-          <span onClick={() => this.handleShowDetail(text)} title="查看订单详情">{text} </span>
+          <span onClick={() => this.props.handleShowDetail(text)} title="查看订单详情">{text} </span>
           <Tag color={LockState[record.IsLock].color}>{LockState[record.IsLock].value}</Tag>
         </span>
       )
@@ -105,11 +105,7 @@ class OrderEntrustList extends React.Component {
     }, {
       title: "订单类型",
       dataIndex: "OrderTypeName"
-    }, /*{
-      title: "运价",
-      dataIndex: "Freight",
-      className: "column-money"
-    }*/];
+    }];
     return (
       <Spin indicator={<Icon style={{ fontSize: '3em' }} type="loading" theme="outlined" />} spinning={this.props.loading}>
         <Card className="OrderEntrustList">
