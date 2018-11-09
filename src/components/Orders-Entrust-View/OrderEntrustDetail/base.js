@@ -5,12 +5,8 @@ import {
   Input,
   Select,
   DatePicker,
-  Tabs,
 } from "antd";
-const TabPane = Tabs.TabPane;
 const { TextArea } = Input;
-const Option = Select.Option;
-const { RangePicker } = DatePicker;
 const FormItem = Form.Item;
 const moment = require("moment");
 moment.locale("zh-cn");
@@ -26,7 +22,16 @@ const SelectProps = {
   filterOption: true,
   allowClear: true,
   optionFilterProp: "children",
-  notFoundContent: "无数据"
+  notFoundContent: "暂无数据"
+};
+
+// 日期校验规则
+const dateValidRules = (rule, value, callback) => {
+  if (!value || typeof value !== "object") {
+    callback("必填项");
+  } else {
+    callback();
+  }
 };
 
 const Base = ({
@@ -36,14 +41,16 @@ const Base = ({
   OrderTypeOptions,
   PaymentMethodOptions,
   customerOptions,
-  CustomerContactOptions
+  CustomerContactOptions,
+  OrderEntrust,
+  OrderTruck
 }) => (
-    <TabPane tab="基础信息" key="1">
+    <div>
       <FormItem label="订单号" className="form-item" {...formLayout}>
         {getFieldDecorator("OrderNo", {
           rules: [{ required: false }],
-          initialValue: this.state.OrderTruck.OrderNo
-            ? this.state.OrderTruck.OrderNo
+          initialValue: OrderTruck.OrderNo
+            ? OrderTruck.OrderNo
             : ""
         })(<Input disabled={true} placeholder="订单号" />)}
       </FormItem>
@@ -115,10 +122,10 @@ const Base = ({
         {getFieldDecorator("OrderDate", {
           rules: [
             { required: false },
-            { validator: this.dateValidRules }
+            { validator: dateValidRules }
           ],
           initialValue: moment(
-            this.state.OrderEntrust.OrderDate,
+            OrderEntrust.OrderDate,
             "YYYY-MM-DD"
           )
         })(<DatePicker />)}
@@ -165,8 +172,8 @@ const Base = ({
       <FormItem label="客户PO" className="form-item" {...formLayout}>
         {getFieldDecorator("CustomerPoNo", {
           rules: [{ required: false }],
-          initialValue: this.state.OrderEntrust.CustomerPoNo
-            ? this.state.OrderEntrust.CustomerPoNo
+          initialValue: OrderEntrust.CustomerPoNo
+            ? OrderEntrust.CustomerPoNo
             : ""
         })(<Input placeholder="客户PO" />)}
       </FormItem>
@@ -177,28 +184,29 @@ const Base = ({
       >
         {getFieldDecorator("CustomerInvoice", {
           rules: [{ required: false }],
-          initialValue: this.state.OrderEntrust.CustomerInvoice
-            ? this.state.OrderEntrust.CustomerInvoice
+          initialValue: OrderEntrust.CustomerInvoice
+            ? OrderEntrust.CustomerInvoice
             : ""
         })(<Input placeholder="客户发票号" />)}
       </FormItem>
       <FormItem label="运价" className="form-item" {...formLayout}>
         {getFieldDecorator("Freight", {
           rules: [{ required: false }],
-          initialValue: this.state.OrderTruck.Freight
-            ? this.state.OrderTruck.Freight
+          initialValue: OrderTruck.Freight
+            ? OrderTruck.Freight
             : ""
         })(<Input placeholder="运价" />)}
       </FormItem>
       <FormItem label="备注" >
         {getFieldDecorator("Remark", {
           rules: [{ required: false }],
-          initialValue: this.state.OrderEntrust.Remark
-            ? this.state.OrderEntrust.Remark
+          initialValue: OrderEntrust.Remark
+            ? OrderEntrust.Remark
             : ""
         })(<TextArea rows={3} placeholder="备注" style={{ width: "100%" }} />)}
       </FormItem>
-    </TabPane >
+    </div>
+
   )
 
 export default Base

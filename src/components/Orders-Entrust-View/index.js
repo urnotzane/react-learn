@@ -1,8 +1,11 @@
 import React from "react";
 import PageHeader from "./PageHeader";
 import "./index.less";
-import { SearchForm } from "../../containers/Orders-Entrust-View";
+import { SearchForm, OrderEntrustDetail } from "../../containers/Orders-Entrust-View";
 import OrderEntrustList from './OrderEntrustList'
+import { Modal } from 'antd'
+const moment = require("moment");
+moment.locale("zh-cn");
 
 class OrdersEntrustView extends React.Component {
   state = {
@@ -17,7 +20,7 @@ class OrdersEntrustView extends React.Component {
     isViewAll: true,
     isOperate: true,
     isSearchMy: false,
-    DetailOrderNo:'',//详情订单号
+    DetailOrderNo: '',//详情订单号
     visible: false //详情弹出框
   };
   componentDidMount() {
@@ -49,6 +52,35 @@ class OrdersEntrustView extends React.Component {
     this.setState = (state, callback) => {
       return;
     };
+  }
+
+  // 弹出框
+  handleOk = (e) => {
+    let detail = this.refs.OrderDetailForm
+    detail.validateFields((err, values) => {
+      console.log(values)
+      if (!err) {
+        for (let key in values) {
+          if (values[key] && typeof values[key] === 'object') {
+            values[key] = moment(values[key]).format('YYYY-MM-DD')
+          }
+          if (!values[key]) {
+            values[key] = "";
+          }
+        }
+        this.setState({
+          visible: false,
+        });
+      } else {
+        console.log(err)
+      }
+    })
+  }
+  // 弹出框
+  handleCancel = (e) => {
+    this.setState({
+      visible: false,
+    });
   }
 
   // 查看订单详情
@@ -158,7 +190,7 @@ class OrdersEntrustView extends React.Component {
       })
       .then(json => {
         if (json.value.result) {
-          this.props.saveOrderEntrustData(json.value.Data, "OrderProp");
+          this.props.saveOrderEntrustData(json.value.root, "OrderProp");
         }
       });
   };
@@ -201,7 +233,7 @@ class OrdersEntrustView extends React.Component {
       })
       .then(json => {
         if (json.value.result) {
-          this.props.saveOrderEntrustData(json.value.Data, "ContainerType");
+          this.props.saveOrderEntrustData(json.value.root, "ContainerType");
         }
       });
   };
@@ -215,7 +247,7 @@ class OrdersEntrustView extends React.Component {
       .then(json => {
         if (json.value.result) {
           this.props.saveOrderEntrustData(
-            json.value.Data,
+            json.value.root,
             "CustomsDeclaration"
           );
         }
@@ -242,7 +274,7 @@ class OrdersEntrustView extends React.Component {
       })
       .then(json => {
         if (json.value.result) {
-          this.props.saveOrderEntrustData(json.value.Data, "DispatcherGroup");
+          this.props.saveOrderEntrustData(json.value.root, "DispatcherGroup");
         }
       });
   };
@@ -254,7 +286,7 @@ class OrdersEntrustView extends React.Component {
       })
       .then(json => {
         if (json.value.result) {
-          this.props.saveOrderEntrustData(json.value.Data, "BusinessType");
+          this.props.saveOrderEntrustData(json.value.root, "BusinessType");
         }
       });
   };
@@ -267,7 +299,7 @@ class OrdersEntrustView extends React.Component {
       })
       .then(json => {
         if (json.value.result) {
-          this.props.saveOrderEntrustData(json.value.Data, "PaymentMethod");
+          this.props.saveOrderEntrustData(json.value.root, "PaymentMethod");
         }
       });
   };
@@ -280,7 +312,7 @@ class OrdersEntrustView extends React.Component {
       })
       .then(json => {
         if (json.value.result) {
-          this.props.saveOrderEntrustData(json.value.Data, "OrderStatus");
+          this.props.saveOrderEntrustData(json.value.root, "OrderStatus");
         }
       });
   };
@@ -293,7 +325,7 @@ class OrdersEntrustView extends React.Component {
       })
       .then(json => {
         if (json.value.result) {
-          this.props.saveOrderEntrustData(json.value.Data, "Currency");
+          this.props.saveOrderEntrustData(json.value.root, "Currency");
         }
       });
   };
@@ -306,7 +338,7 @@ class OrdersEntrustView extends React.Component {
       })
       .then(json => {
         if (json.value.result) {
-          this.props.saveOrderEntrustData(json.value.Data, "OrderType");
+          this.props.saveOrderEntrustData(json.value.root, "OrderType");
         }
       });
   };
@@ -326,7 +358,7 @@ class OrdersEntrustView extends React.Component {
       .fetchRequestIfNeeded("/Employee/Search", "post", {})
       .then(json => {
         if (json.value.result) {
-          this.props.saveOrderEntrustData(json.value.Data, "Employee");
+          this.props.saveOrderEntrustData(json.value.root, "Employee");
         }
       });
   };
@@ -338,7 +370,7 @@ class OrdersEntrustView extends React.Component {
       })
       .then(json => {
         if (json.value.result) {
-          this.props.saveOrderEntrustData(json.value.Data, "TradeWay");
+          this.props.saveOrderEntrustData(json.value.root, "TradeWay");
         }
       });
   };
@@ -347,6 +379,16 @@ class OrdersEntrustView extends React.Component {
     return (
       <div className="OrdersEntrustView-container">
         <PageHeader />
+        <Modal
+          destroyOnClose={true}
+          visible={this.state.visible}
+          onOk={this.handleOk}
+          confirmLoading={this.state.loading}
+          onCancel={this.handleCancel}
+          width="50%"
+        >
+          <OrderEntrustDetail orderNo={this.state.DetailOrderNo} />
+        </Modal>
         <div className="main-content">
           <SearchForm setSearchData={this.setSearchData} />
           <OrderEntrustList
