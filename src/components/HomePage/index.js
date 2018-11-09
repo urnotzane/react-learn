@@ -1,10 +1,12 @@
 import React from "react";
 import "./index.less";
-import { Layout, Modal } from "antd";
+import { Layout, Modal, Icon, BackTop } from "antd";
 import SiderMenu from "./SiderMenu";
 import HomeHeader from "./HomeHeader";
 
 const { Content, Footer } = Layout;
+const moment = require("moment");
+moment.locale("zh-cn");
 
 class HomePage extends React.Component {
   state = {
@@ -48,9 +50,16 @@ class HomePage extends React.Component {
     console.log(e)
   };
 
+  /**链接 */
+  handleLink = e => {
+    const href = e.currentTarget.dataset.href
+    window.open(href)
+  }
+
   render() {
     return (
       <div className='home-container'>
+        <BackTop />
         <Layout style={{ minHeight: "100vh" }}>
           <SiderMenu
             MenuList={this.state.MenuList}
@@ -61,13 +70,12 @@ class HomePage extends React.Component {
           <Layout>
             <HomeHeader />
             <Content>
-              {/* <div style={{ padding: 24, background: "#fff", minHeight: 360 }}>
-                Bill is a cat.
-              </div> */}
               {this.props.children}
             </Content>
-            <Footer style={{ textAlign: "center" }}>
-              UAT ©2018 Created by Zane
+            <Footer style={{ textAlign: "center", color: '#8e8e8e' }}>
+              UAT ©{moment().format('YYYY')}
+              <span title="github" onClick={this.handleLink} data-href="https://github.com/urnotzane" className="link-style"><Icon type="github" /></span>
+              By Zane
             </Footer>
           </Layout>
         </Layout>

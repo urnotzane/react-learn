@@ -1,6 +1,5 @@
 import React from "react";
 import "./index.less";
-import fetch from "../../fetch/fetch";
 import {
   Table,
   Icon,
@@ -9,7 +8,7 @@ import {
   Dropdown,
   Menu,
   Tag,
-  Modal
+  Card
 } from "antd";
 
 /**锁定状态 */
@@ -57,8 +56,8 @@ const rowSelection = {
   })
 };
 
-class OrderEntrustList extends React.Component{
-  componentDidMount(){
+class OrderEntrustList extends React.Component {
+  componentDidMount() {
     console.log(this)
   }
 
@@ -106,54 +105,56 @@ class OrderEntrustList extends React.Component{
     }, {
       title: "订单类型",
       dataIndex: "OrderTypeName"
-    }, {
+    }, /*{
       title: "运价",
       dataIndex: "Freight",
       className: "column-money"
-    }];
+    }*/];
     return (
-      <Spin className="container" indicator={<Icon style={{ fontSize: '3em' }} type="loading" theme="outlined" />} spinning={this.state.loading}>
-        <div className="action-btn">
-          <Button type="primary"><Icon type="plus" theme="outlined" />添加拖车订单</Button>
-          <Button><Icon type="edit" theme="outlined" />修改订单</Button>
-          <Button type="danger"><Icon type="delete" theme="outlined" />删除订单</Button>
-          <Button>订单改派</Button>
-          <Button>订单外派</Button>
-          <Button><Icon type="printer" theme="outlined" />订单打印</Button>
-          <Button><Icon type="export" theme="outlined" />订单导出</Button>
-          <Button>批量派单</Button>
-          <Button><Icon type="lock" theme="outlined" />批量锁单</Button>
-          <Button>批量发布</Button>
-          <Button>我的调度</Button>
-          <Dropdown overlay={OrderProps}>
-            <Button>
-              订单属性 <Icon type="down" />
-            </Button>
-          </Dropdown>
-          <Dropdown overlay={OrderGroup}>
-            <Button>
-              订单分组 <Icon type="down" />
-            </Button>
-          </Dropdown>
-        </div>
-        <Table
-          className="table-container"
-          pagination={{
-            pageSize: this.state.PageSize,
-            total: this.state.total,
-            showQuickJumper: true,
-            showTotal: total => `共 ${total} 条数据`,
-            showSizeChanger: true,
-            onShowSizeChange: this.onShowSizeChange,
-            onChange: this.onChange,
-            bordered: true
-          }}
-          rowKey={(item, index) => index}
-          rowSelection={rowSelection}
-          columns={columns}
-          dataSource={this.state.OrderList}
-          bordered={true}
-        />
+      <Spin indicator={<Icon style={{ fontSize: '3em' }} type="loading" theme="outlined" />} spinning={this.props.loading}>
+        <Card className="OrderEntrustList">
+          <div className="action-btn">
+            <Button type="primary"><Icon type="plus" theme="outlined" />添加拖车订单</Button>
+            <Button><Icon type="edit" theme="outlined" />修改订单</Button>
+            <Button type="danger"><Icon type="delete" theme="outlined" />删除订单</Button>
+            <Button>订单改派</Button>
+            <Button>订单外派</Button>
+            <Button><Icon type="printer" theme="outlined" />订单打印</Button>
+            <Button><Icon type="export" theme="outlined" />订单导出</Button>
+            <Button>批量派单</Button>
+            <Button><Icon type="lock" theme="outlined" />批量锁单</Button>
+            <Button>批量发布</Button>
+            <Button>我的调度</Button>
+            <Dropdown overlay={OrderProps}>
+              <Button>
+                订单属性 <Icon type="down" />
+              </Button>
+            </Dropdown>
+            <Dropdown overlay={OrderGroup}>
+              <Button>
+                订单分组 <Icon type="down" />
+              </Button>
+            </Dropdown>
+          </div>
+          <Table
+            className="table-container"
+            pagination={{
+              pageSize: this.props.PageSize,
+              total: this.props.total,
+              showQuickJumper: true,
+              showTotal: total => `共 ${total} 条数据`,
+              showSizeChanger: true,
+              onShowSizeChange: this.props.onShowSizeChange,
+              onChange: this.props.onChange,
+              bordered: true
+            }}
+            rowKey={(item, index) => index}
+            rowSelection={rowSelection}
+            columns={columns}
+            dataSource={this.props.OrderList}
+            bordered={true}
+          />
+        </Card>
       </Spin>
     );
   }

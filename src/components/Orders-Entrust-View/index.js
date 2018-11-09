@@ -2,6 +2,7 @@ import React from "react";
 import PageHeader from "./PageHeader";
 import "./index.less";
 import { SearchForm } from "../../containers/Orders-Entrust-View";
+import OrderEntrustList from './OrderEntrustList'
 
 class OrdersEntrustView extends React.Component {
   state = {
@@ -39,6 +40,8 @@ class OrdersEntrustView extends React.Component {
     this.fetchCustomerContact();
     this.fetchEmployee();
     this.fetchTradeWay();
+
+    this.fetchList()
   }
 
   componentWillUnmount() {
@@ -46,6 +49,20 @@ class OrdersEntrustView extends React.Component {
       return;
     };
   }
+
+  // 页码变动
+  onChange = current => {
+    this.setState({
+      PageIndex: current
+    }, () => this.fetchList());
+  };
+
+  // 每页数量变化
+  onShowSizeChange = (current, PageSize) => {
+    this.setState({
+      PageSize
+    }, () => this.fetchList());
+  };
 
   //搜索
   setSearchData = data => {
@@ -90,7 +107,7 @@ class OrdersEntrustView extends React.Component {
   fetchSupplier = () => {
     this.props
       .fetchRequestIfNeeded("/api/Partner/GetList", "get", {
-        parnterType1: 4
+        parnterType: 4
       })
       .then(json => {
         if (json.value.result) {
@@ -324,6 +341,14 @@ class OrdersEntrustView extends React.Component {
         <PageHeader />
         <div className="main-content">
           <SearchForm setSearchData={this.setSearchData} />
+          <OrderEntrustList
+            loading={this.state.loading}
+            PageSize={this.state.PageSize}
+            total={this.state.total}
+            OrderList={this.state.OrderList}
+            onShowSizeChange={this.onShowSizeChange}
+            onChange={this.onChange}
+          />
         </div>
       </div>
     );
