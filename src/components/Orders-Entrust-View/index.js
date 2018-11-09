@@ -3,7 +3,7 @@ import PageHeader from "./PageHeader";
 import "./index.less";
 import { SearchForm, OrderEntrustDetail } from "../../containers/Orders-Entrust-View";
 import OrderEntrustList from './OrderEntrustList'
-import { Modal, Form } from 'antd'
+import { Modal } from 'antd'
 const moment = require("moment");
 moment.locale("zh-cn");
 

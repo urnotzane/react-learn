@@ -1,6 +1,13 @@
 .home-container {
-  .ant-back-top{
+  // 回到顶部
+  .ant-back-top {
     z-index: 30;
+    .ant-back-top-content {
+      background: rgba(24, 144, 255, 0.7);
+    }
+    .ant-back-top-content:hover {
+      background: rgba(24, 144, 255, 1);
+    }
   }
   .sider-menu {
     height: 100vh;
@@ -18,7 +25,7 @@
       padding-bottom: 48px;
       .logo {
         height: 32px;
-        background: rgba(255, 255, 255, .2);
+        background: rgba(255, 255, 255, 0.2);
         margin: 16px;
       }
     } // 滚动条整体背景
@@ -33,7 +40,7 @@
     }
   }
   // header
-  .ant-layout-header{
+  .ant-layout-header {
     position: relative;
     z-index: 19;
   }
@@ -42,12 +49,12 @@
     position: relative;
     z-index: 18;
   }
-  .link-style{
+  .link-style {
     color: #8e8e8e;
     padding: 0 30px;
     cursor: pointer;
   }
-  .link-style:hover{
+  .link-style:hover {
     color: #555;
   }
 }
