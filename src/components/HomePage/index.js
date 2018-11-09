@@ -16,6 +16,7 @@ class HomePage extends React.Component {
 
   componentDidMount() {
     console.log(this);
+    this.checkLogin()
     /**
      * 从本地存储获取菜单数据
      */
@@ -40,6 +41,18 @@ class HomePage extends React.Component {
       // modal.destroy();
     });
   };
+
+  /**检查登录状态 */
+  checkLogin = () => {
+    this.props.fetchRequestIfNeeded('/Login/GetLogin', 'post', {})
+      .then(json => {
+        if(json.value.result){
+          this.props.saveData(json.value, 'LoginData')
+        }else{
+          this.WarningModal('登录失效，请重新登录！')
+        }
+      })
+  }
 
   onCollapse = collapsed => {
     this.setState({ collapsed });
