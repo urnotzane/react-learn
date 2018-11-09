@@ -3,7 +3,7 @@ import PageHeader from "./PageHeader";
 import "./index.less";
 import { SearchForm, OrderEntrustDetail } from "../../containers/Orders-Entrust-View";
 import OrderEntrustList from './OrderEntrustList'
-import { Modal } from 'antd'
+import { Modal, Form } from 'antd'
 const moment = require("moment");
 moment.locale("zh-cn");
 
@@ -56,8 +56,10 @@ class OrdersEntrustView extends React.Component {
 
   // 弹出框
   handleOk = (e) => {
-    let detail = this.refs.OrderDetailForm
-    detail.validateFields((err, values) => {
+    let detail = this.refs.OrderEntrustDetail
+    const wa = Form.create(detail)
+    console.log(wa)
+    wa.validateFields((err, values) => {
       console.log(values)
       if (!err) {
         for (let key in values) {
@@ -387,7 +389,7 @@ class OrdersEntrustView extends React.Component {
           onCancel={this.handleCancel}
           width="50%"
         >
-          <OrderEntrustDetail orderNo={this.state.DetailOrderNo} />
+          <OrderEntrustDetail ref="OrderEntrustDetail" orderNo={this.state.DetailOrderNo} />
         </Modal>
         <div className="main-content">
           <SearchForm setSearchData={this.setSearchData} />
