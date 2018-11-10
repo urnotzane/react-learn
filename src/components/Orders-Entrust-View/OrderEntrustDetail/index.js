@@ -185,8 +185,9 @@ class OrderEntrustDetail extends React.Component {
   };
 
   // Select选中回调
-  onSelected = value => {
+  onSelected = (value, option) => {
     this.setState({ tempValue: value });
+    console.log(option)
   };
 
   handleCancel = e => {
@@ -256,7 +257,7 @@ class OrderEntrustDetail extends React.Component {
     const PaymentMethodOptions = this.props.PaymentMethod.map(d => (
       <Option key={d.ExtendNumber1}>{d.Value}</Option>
     ));
-    const CustomerContactOptions = this.props.CustomerContact.map(d => (
+    const CustomerContactOptions = this.state.CustomerContact.map(d => (
       <Option key={d.Id}>{d.ContactName}</Option>
     ));
     const PortOptions = this.props.Port.map(d => (
