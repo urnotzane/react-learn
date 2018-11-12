@@ -11,7 +11,7 @@ const moment = require("moment");
 moment.locale("zh-cn");
 
 function callback(key) {
-  console.log(key);
+  // console.log(key);
 }
 
 class OrderEntrustDetail extends React.Component {
@@ -28,12 +28,11 @@ class OrderEntrustDetail extends React.Component {
     orderCostId: [],
     CustomerContact: [], //根据客户id搜索的客户联系人
     FactoryInHandling: [], //该客户工厂
-    visible: false, //选择工厂显示
+    visible: false, //选择工厂modal的显示
     tempValue: "" //临时变量
   };
 
   componentDidMount() {
-    console.log(this);
     this.fetchOrderInfo();
     this.fetchOrderDetail();
   }
@@ -43,6 +42,19 @@ class OrderEntrustDetail extends React.Component {
       return;
     };
   }
+
+  // 选择客户联动
+  customerChange = value => {
+    let OrderEntrust = this.state.OrderEntrust
+    OrderEntrust.CustomerContactId = ''
+    this.setState({
+      OrderFactoryList: [],
+      OrderEntrust
+    })
+    this.fetchCustomerContact(value)
+    this.fetchFactoryInHandling(value, [])
+  }
+
   // 客户联系人
   fetchOrderDetail = () => {
     this.props
@@ -185,9 +197,8 @@ class OrderEntrustDetail extends React.Component {
   };
 
   // Select选中回调
-  onSelected = (value, option) => {
+  onSelected = value => {
     this.setState({ tempValue: value });
-    console.log(option)
   };
 
   handleCancel = e => {
@@ -293,6 +304,7 @@ class OrderEntrustDetail extends React.Component {
                 CustomerContactOptions={CustomerContactOptions}
                 OrderEntrust={this.state.OrderEntrust}
                 OrderTruck={this.state.OrderTruck}
+                customerChange={this.customerChange}
               />
             </TabPane>
             <TabPane tab="装货信息" key="2" forceRender={true}>

@@ -43,7 +43,8 @@ const Base = ({
   customerOptions,
   CustomerContactOptions,
   OrderEntrust,
-  OrderTruck
+  OrderTruck,
+  customerChange
 }) => (
     <div>
       <FormItem label="订单号" className="form-item" {...formLayout}>
@@ -151,7 +152,7 @@ const Base = ({
         {getFieldDecorator("CustomerId", {
           rules: [{ required: true, message: "必填项" }]
         })(
-          <Select {...SelectProps} placeholder="客户名称">
+          <Select {...SelectProps} placeholder="客户名称" onChange={customerChange}>
             {customerOptions}
           </Select>
         )}
